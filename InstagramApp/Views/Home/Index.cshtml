@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+	var posts = (IEnumerable<dynamic>)Model;
+}
+    <div class="text-center">
+        <h1 class="display-4">Domovská stránka Instagramu</h1>
+        <p>Vítejte na domovské stránce Instagramu! Na této stránce vidíte příspěvky těch, které sledujete.</p>
+    </div>
+
+    @* <table class="table">
+        <thead>
+            <tr>
+                <th>Autor příspěvku</th>
+                <th>Popis příspěvku</th>
+                <th>Datum přidání příspěvku</th>
+				<th>Možnosti</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in posts)
+            {
+                <tr>
+                    <td>@post.AuthorName</td>
+                    <td>@post.Text</td>
+                    <td>@post.ReleaseDate.ToString()</td>
+                    <td>
+                        @if ((bool)post.hasUserLiked)
+						{
+							<a class="btn btn-danger" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId">Unlike</a>
+						}
+						else
+						{
+                            <a class="btn btn-primary" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId">Like</a>
+						}
+                        <a class="btn btn-secondary" asp-action="LikeInfo" asp-controller="Post" asp-route-id="@post.PostId">Zobrazit liky</a>
+                        <a class="btn btn-primary" asp-action="Comment" asp-controller="Post" asp-route-id="@post.PostId">Přidat komentář</a>
+                        <a class="btn btn-secondary" asp-action="CommentInfo" asp-controller="Post" asp-route-id="@post.PostId">Zobrazit komentáře</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table> *@
+
+<div class="d-flex flex-column justify-content-center align-items-center" style="gap: 2em">
+    @foreach (var post in Model)
+    {
+        <div class="card" style="width: 22rem;">
+            <img src="@Url.Content("~/images/" + @post.ImgPath)" class="card-img-top fixed-img-height" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title text-center">@post.AuthorName</h5>
+                <p class="card-text text-center mb-0">@post.Text</p>
+                <p class="card-text text-center"><i class="bi bi-calendar-date"></i> @post.ReleaseDate.ToString()</p>
+                <div class="d-grid gap-2">
+                    <div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 1em;">
+                        @if ((bool)post.hasUserLiked)
+                        {
+                            <a class="btn btn-danger" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId"><i class="bi bi-heart-fill"></i> Unlike</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId"><i class="bi bi-heart"></i> Like</a>
+                        }
+                        <a class="btn btn-outline-info" asp-action="LikeInfo" asp-controller="Post" asp-route-id="@post.PostId"><i class="bi bi-heart-fill"></i> Likes</a>
+                    </div>
+
+                    <div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 1em;">
+                        <a class="btn btn-primary" asp-action="Comment" asp-controller="Post" asp-route-id="@post.PostId"><i class="bi bi-chat-dots"></i> Comment</a>
+                        <a class="btn btn-outline-info" asp-action="CommentInfo" asp-controller="Post" asp-route-id="@post.PostId"><i class="bi bi-chat-dots-fill"></i> Comments</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+

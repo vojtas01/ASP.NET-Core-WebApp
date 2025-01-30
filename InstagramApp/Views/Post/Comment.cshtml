@@ -1,0 +1,27 @@
+﻿@{
+    var postId = (int)ViewData["PostId"];
+    var prevUrl = (string)ViewData["prefUrl"];
+    var userName = (string)ViewData["UserName"];
+    ViewData["Title"] = "Přidat komentář";
+}
+
+<h4>Comment</h4>
+<p>Vyplněním políčka níže můžete k příspěvku přidat komentář!</p>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CommentPost" method="post">
+            <div class="form-group">
+                <label for="Text" class="control-label"></label>
+                <textarea name="Text" placeholder="Komentář" class="form-control"></textarea>
+            </div>
+            <input type="hidden" name="PostId" value="@postId" />
+            <input type="hidden" name="prevUrl" value="@prevUrl" />
+            <input type="hidden" name="UserName" value="@userName" />
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+﻿@{
+	ViewData["Title"] = "Příspěvky uživatele";
+	var posts = (IEnumerable<dynamic>)Model;
+}
+
+<div class="text-center">
+	<h3 class="display-8">Uživatel @ViewBag.UserName</h3>
+	<h3 class="display-8">(@ViewBag.FirstName @ViewBag.LastName)</h3>
+
+	@if((bool)ViewBag.IsUserFindingHimself)
+	{
+		<p>Vyhledali jste sami sebe!</p>
+		<p>V případě, že chcete spravovat vaše příspěvky klikněte na tlačítko níže.</p>
+
+		<a class="btn btn-primary" asp-action="Index" asp-controller="Post">Spravovat příspěvky</a>
+	}
+	else
+	{
+		<p>Na této stránce vidíte příspěvky uživatele @ViewBag.UserName</p>
+
+		@if ((bool)ViewBag.IsFollowing)
+		{
+			<a class="btn btn-danger" asp-action="UnfollowUser" asp-route-userName="@ViewBag.UserName">Přestat sledovat uživatele</a>
+		}
+		else
+		{
+			<a class="btn btn-primary" asp-action="FollowUser" asp-route-userName="@ViewBag.UserName">Sledovat uživatele</a>
+		}
+	}
+</div>
+
+<br />
+@* <table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Popis příspěvku</th>
+			<th>Datum přidání příspěvku</th>
+			<th>Možnosti</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var post in Model)
+		{
+			<tr>
+				<td>@post.PostId</td>
+				<td>@post.Text</td>
+				<td>@post.ReleaseDate.ToString()</td>
+				<td>
+					@if ((bool)post.hasUserLiked)
+					{
+						<a class="btn btn-danger" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName">Unlike</a>
+					}
+					else
+					{
+						<a class="btn btn-primary" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName">Like</a>
+					}
+					<a class="btn btn-secondary" asp-action="LikeInfo" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName">Zobrazit liky</a>
+					<a class="btn btn-primary" asp-action="Comment" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName">Comment</a>
+					<a class="btn btn-outline-info" asp-action="CommentInfo" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName">Comments</a>
+
+				</td>
+			</tr>
+		}
+	</tbody> *@
+
+	<div class="d-flex flex-column justify-content-center align-items-center" style="gap: 2em">
+	@foreach (var post in Model)
+	{
+			<div class="card" style="width: 22rem;">
+					<img src="@Url.Content("~/images/" + @post.ImgPath)" class="card-img-top fixed-img-height" alt="Card image cap">
+				<div class="card-body">
+					<p class="card-text text-center mb-0">@post.Text</p>
+					<p class="card-text text-center"><i class="bi bi-calendar-date"></i> @post.ReleaseDate.ToString()</p>
+					<div class="d-grid gap-2">
+						<div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 1em;">
+						@if ((bool)post.hasUserLiked)
+						{
+								<a class="btn btn-danger" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName"><i class="bi bi-heart-fill"></i> Unlike</a>
+						}
+						else
+						{
+								<a class="btn btn-primary" asp-action="LikePost" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName"><i class="bi bi-heart"></i> Like</a>
+						}
+							<a class="btn btn-outline-info" asp-action="LikeInfo" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName"><i class="bi bi-heart-fill"></i> Likes</a>
+						</div>
+
+						<div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 1em;">
+							<a class="btn btn-primary" asp-action="Comment" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName"><i class="bi bi-chat-dots"></i> Comment</a>
+								<a class="btn btn-outline-info" asp-action="CommentInfo" asp-controller="Post" asp-route-id="@post.PostId" asp-route-userName="@ViewBag.UserName"><i class="bi bi-chat-dots-fill"></i> Comments</a>
+						</div>
+					</div>
+				</div>
+			</div>
+	}
+</div>

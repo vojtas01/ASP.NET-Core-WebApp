@@ -1,0 +1,22 @@
+﻿@model InstagramApp.Models.Post
+
+@{
+    ViewData["Title"] = "Vytvoření příspěvku";
+}
+<h1>Vytvoření příspěvku</h1>
+<br />
+
+<form asp-action="CreatePostForm" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="control-label">Popis příspěvku</label>
+        <input class="form-control" asp-for="Text" placeholder="Zadejte popis k příspěvku" type="text" />
+    </div>
+    
+    <div class="form-group">
+        <label for="imgUpload">Nahrát obrázek</label>
+        <input type="file" class="form-control" id="imgUpload" name="ImageFile" asp-for="ImageFile" />
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-primary mt-2" />
+
+</form>
