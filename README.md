@@ -9,3 +9,5 @@ Jednoduchá webová aplikace v ASP.NET Core s architekturou MVC. Aplikace funguj
 - lajkování příspěvků
 - komentování příspěvků
 - vyhledávání uživatelů
+
+Tato aplikace byla závěrečný projekt pro absolvování kurzu .NET, který jsem úspěšně absolvoval.
